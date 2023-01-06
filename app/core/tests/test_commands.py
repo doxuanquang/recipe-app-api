@@ -11,7 +11,7 @@ from django.test import SimpleTestCase
 
 
 @patch('core.management.commands.wait_for_db.Command.check')
-class CommandTest(SimpleTestCase):
+class CommandTests(SimpleTestCase):
     """Test commands"""
 
     def test_wait_for_db_ready(self, patched_check):
@@ -20,7 +20,7 @@ class CommandTest(SimpleTestCase):
 
         call_command('wait_for_db')
 
-        patched_check.asset_call_once_with(databases=['default'])
+        patched_check.assert_called_once_with(databases=['default'])
     
     @patch('time.sleep')
     def test_wait_for_db_delay(self, patched_sleep, patched_check):
